@@ -11,8 +11,8 @@ export default function Header(props) {
                 <ul className={styles.headerNavigation}>
                     <li><Link href='/'>Log-in</Link></li>
                     <li><Link href='/'>Join</Link></li>
-                    <li><Link href='/'>Posting</Link></li>
-                    <li><Link href='/'></Link></li>
+                    <li><Link href='/'>Post</Link></li>
+                    <li><Link href='https://github.com/Haproguy/hayoungkwon-blog'>Git</Link></li>
                 </ul>
             </nav>
         </header>

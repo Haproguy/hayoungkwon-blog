@@ -1,42 +1,57 @@
+@import '/src/styles/variable.scss';
+
 .header {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
-    padding: 1rem 10%;
-    height: 5rem;
+    align-items: center;
+    padding: $default 10%;
+    height: 3rem;
     background-color: #202020;
 }
 
 .blogName {
-    font-size: 1.5rem;
+    font-size: $large;
     color: white;
     font-family: 'Fira', sans-serif;
     height: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    color: #94fdfd;
+    color: $mint;
 
     a {
-        text-decoration: none;
-        color: #94fdfd;
+        color: $mint;
     }
 
 }
 
-.headerNavigation a {
-    text-decoration: none;
-    color: #74dacc;
-    font-size: 1rem;
+.headerNavigation {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+    a {
+        color: $mint;
+        font-size: $small;
+        transition: 0.1s all;
+
+        &:hover {
+            color: $point-blue;
+        }
+
+        &:active {
+            color: $point-red;
+        }
+    }
 }
 
-@media (min-width: 768px) {
-    .logo {
-        font-size: 2.5rem;
+@media (min-width: ($breakpoing_tablet)) {
+    .blogName {
+        font-size: $largest;
     }
 
     .headerNavigation a {
-        font-size: 1.5rem;
+        font-size: $large;
     }
 }

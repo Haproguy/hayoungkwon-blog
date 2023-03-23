@@ -1,0 +1,28 @@
+@import './variable.scss';
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#__next {
+    height: 100vh;
+}
+
+h1 {
+    font-size: $largest;
+}
+
+h2 {
+    font-size: $large;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul,
+li {
+    list-style: none;
+}
