@@ -1,0 +1,77 @@
+@import './variable.scss';
+
+@mixin bannerlocation {
+    position: absolute;
+    top: 20%;
+    left: 70%;
+}
+
+.main {
+    width: 100%;
+
+    .banner {
+        width: 200%;
+        overflow: hidden;
+
+        .hello {
+            @include bannerlocation;
+
+            p {
+                position: relative;
+                font-size: $default;
+                margin-top: 10px;
+
+                animation-name: fade-in;
+                animation-fill-mode: both;
+                animation-duration: .5s;
+            }
+        }
+
+        .spec {
+            display: none;
+            @include bannerlocation;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .appear {
+            display: block;
+        }
+    }
+}
+
+
+
+@for $i from 1 through 5 {
+    .hello {
+        p:nth-of-type(#{$i}) {
+            animation-delay: #{1 + ($i)* 0.5}s;
+        }
+    }
+}
+
+@keyframes fade-in {
+    0% {
+        left: -10%;
+        opacity: 0;
+    }
+
+    100% {
+        left: 0%;
+        opacity: 1;
+    }
+}
+
+@media(max-width : $breakpoing_tablet) {
+    .main {
+        .banner {
+            .hello {
+                p {
+                    font-size: $small;
+                }
+            }
+        }
+    }
+}

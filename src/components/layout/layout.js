@@ -5,15 +5,17 @@ import { Fragment } from 'react';
 
 export default function AppLayout(props) {
     return (
-        <div className='layout'>
-            <Header />
-            <div className="middle">
-                <Sidebar />
-                <main>
-                    {props.children}
-                </main>
+        <>
+            <div className='layout'>
+                <Header />
+                <div className="middle">
+                    <Sidebar />
+                    <main>
+                        {props.children}
+                    </main>
+                </div>
             </div>
             <Footer />
-        </div>
+        </>
     );
 }
