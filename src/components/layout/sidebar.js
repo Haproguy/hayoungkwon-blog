@@ -5,34 +5,49 @@ import { useState } from 'react';
 export default function Sidebar(props) {
     const { recentPost } = props;
 
-    const [toggle, setToggle] = useState(false);
+    const [isActive, setIsActive] = useState(false);
+    const toggleSidebar = () => {
+        setIsActive(pre => !pre);
+    };
 
     return (
         <>
-            <div className={styles.sidebar}>
+            <div className={`${styles.sidebar} ${isActive && styles.active}`}>
                 <div className={styles.profile}>
-                    <img className={styles.profileImage} src="/images/hayoungkwon-image.jpg" alt="Profile Image" />
+                    <img
+                        className={styles.profileImage}
+                        src="/images/hayoungkwon-image.jpg"
+                        alt="profile"
+                    />
                     <h2 className={styles.profileName}>Ha YoungKwon</h2>
-                    <p className={styles.profileBio}>Frontend Developer</p>
+                    <p className={styles.profileBio}>
+                        Front-End Developer
+                    </p>
                 </div>
+
                 <div className={styles.recentPosts}>
-                    <h3>최신글보기</h3>
+                    <h3>최근 게시글</h3>
                     <ul>
                         <li>
-                            <a href="#">Post Title 1</a>
+                            <a href="#">Post 1</a>
                         </li>
                         <li>
-                            <a href="#">Post Title 2</a>
+                            <a href="#">Post 2</a>
                         </li>
                         <li>
-                            <a href="#">Post Title 3</a>
+                            <a href="#">Post 3</a>
                         </li>
                     </ul>
                 </div>
-                <p>Blog Introduction</p>
             </div>
 
-            { }
+            <div className={styles.sideToggle}>
+                <div
+                    className={`${styles.toggleButton} ${isActive && styles.active}`}
+                    onClick={toggleSidebar}
+                >
+                </div>
+            </div>
         </>
     );
 }

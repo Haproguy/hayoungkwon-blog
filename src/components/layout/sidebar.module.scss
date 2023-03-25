@@ -1,19 +1,27 @@
 .sidebar {
-    width: 250px;
-    height: 100vh;
-    background-color: rgba($color: #f0f0f0, $alpha: 0.8);
+    width: 240px;
+    height: 100%;
     position: fixed;
     top: 0;
     left: 0;
+    background-color: rgba($color: #fff, $alpha: 0.8);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    transform: translateX(-240px);
+    transition: transform 0.3s ease-in-out;
+
+    &.active {
+        transform: translateX(0);
+    }
 
     &::before {
+        width: 100%;
+        height: 100%;
         content: "";
         position: absolute;
         top: 0;
         left: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0.8;
+        opacity: 1;
         z-index: -1;
     }
 
@@ -27,6 +35,7 @@
             width: 120px;
             height: 120px;
             border-radius: 50%;
+            opacity: 1;
         }
 
         .profileName {
@@ -44,23 +53,27 @@
 
     .recentPosts {
         margin-top: 20px;
+        padding-left: 20px;
 
         h3 {
-            margin: 0;
+            margin-bottom: 10px;
+            font-weight: 600;
             font-size: 16px;
         }
 
         ul {
-            list-style: none;
             margin: 0;
             padding: 0;
 
             li {
-                margin-top: 10px;
+                margin-bottom: 10px;
+                font-size: 14px;
+                color: #666;
+                transition: color 0.2s ease-in-out;
+
 
                 a {
                     color: #333;
-                    text-decoration: none;
 
                     &:hover {
                         text-decoration: underline;
@@ -68,5 +81,43 @@
                 }
             }
         }
+    }
+}
+
+// --------버튼만 따로관리----------
+.sideToggle {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 30px;
+
+    .toggleButton {
+        width: 40px;
+        height: 40px;
+        padding: 5px;
+        position: absolute;
+        top: 50%;
+        left: 0px;
+        border-radius: 5px;
+        transform: translateY(-50%);
+        background-color: rgba($color: #fff, $alpha: 0.8);
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: transform 0.3s ease-in-out;
+        margin-left: 15px;
+        background: url('/icons/angle-right.png');
+        background-size: cover;
+
+        &.active {
+            transform: translateX(240px) translateY(-50%) rotate(-180deg);
+        }
+
+        &:hover {
+            background-color: #c8c8c8;
+        }
+
     }
 }
