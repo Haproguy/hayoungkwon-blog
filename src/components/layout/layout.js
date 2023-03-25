@@ -1,5 +1,4 @@
 import Header from './header';
-import Footer from './footer';
 import Sidebar from './sidebar';
 import { Fragment } from 'react';
 
@@ -15,7 +14,6 @@ export default function AppLayout(props) {
                     </main>
                 </div>
             </div>
-            <Footer />
         </>
     );
 }

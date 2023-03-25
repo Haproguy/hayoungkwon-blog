@@ -6,11 +6,18 @@
     left: 70%;
 }
 
+@mixin bannerAni {
+    animation-name: fade-in;
+    animation-fill-mode: both;
+    animation-duration: .5s;
+}
+
 .main {
     width: 100%;
 
     .banner {
         width: 200%;
+        display: block;
         overflow: hidden;
 
         .hello {
@@ -21,15 +28,26 @@
                 font-size: $default;
                 margin-top: 10px;
 
-                animation-name: fade-in;
-                animation-fill-mode: both;
-                animation-duration: .5s;
+                @include bannerAni;
             }
         }
 
         .spec {
             display: none;
             @include bannerlocation;
+
+            p {
+                position: relative;
+                font-size: $default;
+                margin-top: 10px;
+                @include bannerAni;
+
+                img {
+                    width: 20%;
+                    height: 15%;
+                    background: cover;
+                }
+            }
         }
 
         .hide {
@@ -46,6 +64,12 @@
 
 @for $i from 1 through 5 {
     .hello {
+        p:nth-of-type(#{$i}) {
+            animation-delay: #{1 + ($i)* 0.5}s;
+        }
+    }
+
+    .spec {
         p:nth-of-type(#{$i}) {
             animation-delay: #{1 + ($i)* 0.5}s;
         }

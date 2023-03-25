@@ -1,9 +1,14 @@
 .layout {
     height: auto;
     min-height: 100%;
-}
 
-.middle {
-    display: flex;
-    justify-content: space-between;
+    .middle {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        main {
+            width: 100%
+        }
+    }
 }
