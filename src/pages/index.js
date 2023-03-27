@@ -24,10 +24,13 @@ export default function MainPage() {
                     <p>State Manager : <img src="/images/redux_toolkit.png" alt="Redux/toolkit" /></p>
                     <p>Style Sheet : <img src="/images/sass.png" alt="SCSS" /></p>
                     <p>Storage : <img src="/images/firebase.png" alt="Firebase" /></p>
-                    <p>프로젝트 설명 보러가기</p>
+                    <p>프로젝트 개요</p>
                 </div>
+
+                <button onClick={changeTrigger}>
+                    <img src={styleTrigger ? '/icons/search.png' : '/icons/home.png'} alt="img" />
+                </button>
             </div>
-            <button onClick={changeTrigger}>123</button>
         </div >
     );
 }
