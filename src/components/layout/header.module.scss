@@ -1,4 +1,4 @@
-@import '/src/styles/variable.scss';
+@import '../../styles/variable.scss';
 
 .header {
     width: 100%;
@@ -38,11 +38,11 @@
         transition: 0.1s all;
 
         &:hover {
-            color: $point-blue;
+            color: $complete;
         }
 
         &:active {
-            color: $point-red;
+            color: $fail;
         }
     }
 }

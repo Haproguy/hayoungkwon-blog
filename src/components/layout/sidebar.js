@@ -1,9 +1,7 @@
 import styles from './sidebar.module.scss';
-import Link from 'next/link';
 import { useState } from 'react';
 
 export default function Sidebar(props) {
-    const { recentPost } = props;
 
     const [isActive, setIsActive] = useState(false);
     const toggleSidebar = () => {
