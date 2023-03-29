@@ -17,7 +17,7 @@ export default function WritePage() {
 
         const replace = (postContent.current.value).replace('. ', '\n');
 
-         await axios.post('/api/posting/createpost', {
+        await axios.post('/api/posting/createpost', {
             title: postTitle,
             content: replace,
             postdate: new Date().toUTCString()

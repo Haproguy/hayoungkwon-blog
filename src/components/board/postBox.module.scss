@@ -1,0 +1,48 @@
+@import '/src/styles/variable.scss';
+
+.postItem {
+    width: 500px;
+    background-color: $mint;
+    border: 2px solid $deepGray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    a {
+        width: 100%;
+        color: $deepGray;
+        display: flex;
+        gap: $default;
+    }
+
+    img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .itemContents {
+        h2 {
+            font-size: $default;
+        }
+
+        div {
+            font-size: $small;
+        }
+    }
+}
+
+@media (max-width: ($breakpoing_tablet)) {
+    .postItem {
+        width: 300px;
+
+        .itemContents {
+            h2 {
+                font-size: $small;
+            }
+
+            div {
+                font-size: $smallest;
+            }
+        }
+    }
+}
