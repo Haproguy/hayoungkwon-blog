@@ -6,9 +6,20 @@ export default function PostList() {
     useEffect(() => {
         axios.get('/api/posting/postList')
             .then(res => {
-                let postData = res.data;
-                
-                // setPostingList(postData);
+                const postData = res.data;
+                const boardList = [];
+
+                for (const key in postData) {
+                    boardList.push(
+                        {
+                            id: key,
+                            title: postData[key].title,
+                            content: postData[key].content,
+                            date: postData[key].date
+                        }
+                    )
+                }
+                setPostingList(boardList);
             })
             .catch(err => console.log(err));
     }, [])
@@ -32,8 +43,12 @@ export default function PostList() {
                 {
                     postingList.map(data => {
                         return (
-                            <li key={data.postId}>
-                                <div>{data.title}</div>
+                            <li key={data.id}>
+                                <div>
+                                    <Link href={`/posting/${data.id}`}>
+                                        {data.title}
+                                    </Link>
+                                </div>
                                 <div>{data.date}</div>
                             </li>
                         );

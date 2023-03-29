@@ -1,4 +1,4 @@
-import { getDatabase, push, ref } from 'firebase/database';
+import { getDatabase, set, push, ref } from 'firebase/database';
 import { firebaseApp } from '@/firebaseConfig';
 
 export default function createPost(req, res) {
@@ -10,7 +10,7 @@ export default function createPost(req, res) {
             push(ref(db, 'posting/'), {
                 title: title,
                 content: content,
-                date: postdate
+                date: postdate,
             });
         }
         postBlog(title, content, postdate);
