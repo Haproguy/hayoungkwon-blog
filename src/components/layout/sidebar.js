@@ -46,6 +46,7 @@ export default function Sidebar(props) {
                 >
                 </div>
             </div>
+            {isActive && <div className={styles.sideback}></div>}
         </>
     );
 }

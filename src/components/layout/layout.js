@@ -9,6 +9,7 @@ export default function AppLayout(props) {
                 <Header />
                 <div className="middle">
                     <Sidebar />
+                    
                     <main>
                         {props.children}
                     </main>

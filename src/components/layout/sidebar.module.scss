@@ -1,3 +1,11 @@
+.sideback {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    background-color: rgba($color: #000000, $alpha: .8);
+    z-index: 99;
+}
+
 .sidebar {
     width: 240px;
     height: 100%;
@@ -90,6 +98,7 @@
     align-items: center;
     justify-content: flex-end;
     margin-top: 30px;
+    z-index: 100;
 
     .toggleButton {
         width: 30px;
