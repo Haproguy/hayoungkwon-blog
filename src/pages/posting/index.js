@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import styles from './posting.module.scss';
+
+import PostItem from '@/components/board/postItem';
 
 export default function PostList(props) {
     useEffect(() => {
@@ -10,41 +12,35 @@ export default function PostList(props) {
     }, [])
 
     const [postingList, setPostingList] = useState();
-    console.log(postingList);
 
     if (!postingList) {
         return (
             <>
                 <div>loading....</div>
-                <Link href='/posting/createpost'>글작성</Link>
             </>
         );
     }
 
     return (
-        <>
-            <ul>
+        <div className={styles.postingWrap}>
+            <h1>게시글</h1>
+
+            <ul className={styles.board}>
                 {
                     postingList.map(data => {
                         return (
-                            <li key={data.id}>
-                                <div>
-                                    <Link href={{
-                                        pathname: '/posting/[postId]',
-                                        query: { postId: data.id },
-                                    }}
-                                        as={`/posting/${data.id}`}>
-                                        {data.title}
-                                    </Link>
-                                </div>
-                                <div>{data.date}</div>
-                            </li>
+                            <PostItem key={data.id}
+                                title={data.title}
+                                date={data.date}
+                                postImg={data.postImg ? data.postImg : null}
+                                postId={data.id}
+                            />
                         );
                     })
                 }
             </ul>
             <Link href='/posting/createpost'>글작성</Link>
-        </>
+        </div>
     );
 }
 
