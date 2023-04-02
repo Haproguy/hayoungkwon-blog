@@ -9,6 +9,8 @@
     align-items: center;
     padding: $default 10%;
     background-color: #202020;
+
+    transition: 0.3s all;
 }
 
 .blogName {
@@ -46,6 +48,7 @@
         }
     }
 }
+
 
 @media (min-width: ($breakpoing_tablet)) {
     .blogName {

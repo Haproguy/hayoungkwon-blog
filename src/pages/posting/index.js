@@ -1,19 +1,24 @@
 import Link from 'next/link';
 import axios from 'axios';
-import { useState, useEffect } from 'react';
 import styles from './posting.module.scss';
 
 import PostItem from '@/components/board/postItem';
+import { useEffect, useState } from 'react';
 
 export default function PostList(props) {
+    const [postList, setPostList] = useState();
+    const { postData } = props;
+
     useEffect(() => {
-        const { postData } = props;
-        setPostingList(postData);
+        if (postList) {
+            setPostList(false);
+        }
+        setPostList(postData);
     }, [])
 
-    const [postingList, setPostingList] = useState();
+    console.log(postList)
 
-    if (!postingList) {
+    if (!postList) {
         return (
             <>
                 <div>loading....</div>
@@ -24,10 +29,11 @@ export default function PostList(props) {
     return (
         <div className={styles.postingWrap}>
             <h1>게시글</h1>
+            <Link href='/posting/createpost'>글작성</Link>
 
-            <ul className={styles.board}>
+            <div className={styles.board}>
                 {
-                    postingList.map(data => {
+                    postList.map(data => {
                         return (
                             <PostItem key={data.id}
                                 title={data.title}
@@ -38,8 +44,7 @@ export default function PostList(props) {
                         );
                     })
                 }
-            </ul>
-            <Link href='/posting/createpost'>글작성</Link>
+            </div>
         </div>
     );
 }

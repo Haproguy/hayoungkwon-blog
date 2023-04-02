@@ -1,0 +1,14 @@
+@import '/src/styles/variable.scss';
+
+.edit {
+    width: 50%;
+    height: 50%;
+
+
+}
+
+@media (max-width : $breakpoing_tablet) {
+    .edit {
+        width :400px;
+    }
+}
