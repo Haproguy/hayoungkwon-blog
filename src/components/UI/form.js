@@ -1,5 +1,6 @@
 import styles from './form.module.scss';
 import Button from '@/components/UI/button';
+import Write from '@/pages/posting/write,';
 
 export default function Form(props) {
     const { submitHandler, children } = props;
@@ -8,7 +9,7 @@ export default function Form(props) {
         <div className={styles.formWrap}>
             <form onSubmit={submitHandler}>
                 <div className={styles.inputWrap}>
-                    {children}
+                    {props.children}
                 </div>
 
                 <div className={styles.formButton}>

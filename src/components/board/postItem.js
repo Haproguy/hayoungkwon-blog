@@ -6,7 +6,7 @@ export default function PostItem(props) {
 
     return (
         <>
-            <li className={styles.postItem}>
+            <div className={styles.postItem}>
                 <Link href={{
                     pathname: '/posting/[postId]',
                     query: { postId: postId }
@@ -19,7 +19,7 @@ export default function PostItem(props) {
                         <div className={styles.postId}>작성자 : 작성자</div>
                     </div>
                 </Link>
-            </li>
+            </div>
         </>
     );
 }

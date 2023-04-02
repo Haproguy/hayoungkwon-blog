@@ -46,7 +46,7 @@ export default function Sidebar(props) {
                 >
                 </div>
             </div>
-            {isActive && <div className={styles.sideback}></div>}
+            {isActive && <div onClick={toggleSidebar} className={styles.sideback}></div>}
         </>
     );
 }
