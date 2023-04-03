@@ -27,3 +27,27 @@ ul,
 li {
     list-style: none;
 }
+
+button{
+    border : none;
+    
+}
+
+.quill {
+    height: 100%;
+
+    .ql-container {
+        height: 100%;
+
+        .ql-editor {
+            font-size: $default;
+
+            p {
+                img {
+                    width: 100%
+                }
+            }
+        }
+
+    }
+}

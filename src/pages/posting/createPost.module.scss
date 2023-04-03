@@ -1,0 +1,42 @@
+@import '/src/styles/variable.scss';
+
+.createPost {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    align-items: center;
+
+
+    .titleWrap {
+        width: 80%;
+        height: 10%;
+
+        display: flex;
+        justify-content: space-between;
+
+        input {
+            border: 0;
+
+            flex-grow: 1;
+            font-size: $largest;
+
+            &:focus {
+                outline: 0;
+            }
+
+        }
+
+        button {
+            border-radius: 5px;
+        }
+    }
+
+    .contentsWrap {
+        width: 80%;
+        height: 400px;
+        margin-bottom: 50px;
+    }
+}

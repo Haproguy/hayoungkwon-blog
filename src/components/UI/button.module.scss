@@ -1,14 +1,20 @@
 @import '/src/styles/variable.scss';
 
 .button {
-    width: 100%;
-    height: 100%;
+    width: 150px;
+    height: 50px;
     transition: 0.5s all;
-    color: $mint;
-    background-color: $deepGray;
+    color: $deepGray;
+
+
+    cursor: pointer;
+
+    &:focus {
+        border: none;
+        outline: none;
+    }
 
     &:hover {
-        color: $deepGray;
         background-color: $mint;
     }
 }
