@@ -14,7 +14,7 @@ export default function Header(props) {
             }
         })
     }, [])
-    
+
     return (
         <header className={styles.header} ref={scrollRef} >
             <div className={styles.blogName}>

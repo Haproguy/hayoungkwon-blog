@@ -4,6 +4,9 @@ import Button from "@/components/UI/button";
 
 
 export default function WritePage() {
+    const quill = document.querySelector('.ql-editor');
+    const images = quill.querySelectorAll('img');
+    const [editHtml , setEditHtml] = useState('');
 
 
     return (
