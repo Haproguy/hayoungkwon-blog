@@ -9,7 +9,6 @@ export default function MainPage() {
     const [styleTrigger, setStyleTrigger] = useState(true);
     const changeTrigger = () => {
         setStyleTrigger(pre => !pre)
-        console.log(styleTrigger)
     }
 
     return (

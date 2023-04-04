@@ -16,7 +16,6 @@ export default function PostList(props) {
         setPostList(postData);
     }, [])
 
-    console.log(postList)
 
     if (!postList) {
         return (

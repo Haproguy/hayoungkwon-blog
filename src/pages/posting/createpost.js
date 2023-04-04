@@ -2,6 +2,7 @@ import axios from 'axios';
 import dynamic from 'next/dynamic';
 import { useCallback, useState, useMemo, useRef } from "react";
 import Button from "@/components/UI/button";
+import { dateFormatYDM } from '@/etc/etc';
 const BoardEdit = dynamic(() => import('@/components/board/boardEditor'), {
     ssr: false
 })
@@ -9,13 +10,14 @@ const BoardEdit = dynamic(() => import('@/components/board/boardEditor'), {
 import styles from './createPost.module.scss';
 
 export default function WritePage() {
+    const [imgUrl, setImgUrl] = useState();
     const titleRef = useRef();
     const boardRef = useRef('');
-    const postDate = new Intl.DateTimeFormat('kr').format(new Date());
+    const postDate = dateFormatYDM();
 
     const [boardContents, setBoardContents] = useState('');
 
-    const quillChangeHandler = useCallback((contents) => {
+    const boardChangeHandler = useCallback((contents) => {
         setBoardContents(contents);
         console.log(typeof (boardContents));
     }, []);
@@ -29,6 +31,28 @@ export default function WritePage() {
             .then((res) => {
                 console.log(res.data);
             })
+    }
+
+    const imageHandler = () => {
+        const input = document.createElement('input');
+
+        input.setAttribute('type', 'file');
+        input.setAttribute('accept', 'image/*');
+        input.click();
+
+        input.addEventListener('change', async () => {
+            const file = input.files[0];
+            const formFile = new FormData();
+            formFile.append('uploadImg', file);
+            try {
+                await axios.post('/api/posting/postImage', {
+                    uploadImg: formFile
+                })
+                    .then(res => console.log(res.data.url));
+            } catch (error) {
+                console.log(error);
+            }
+        })
     }
 
 
@@ -51,8 +75,9 @@ export default function WritePage() {
             <div className={styles.contentsWrap}>
                 <BoardEdit
                     quillRef={boardRef}
-                    quillChangeHandler={quillChangeHandler}
+                    quillChangeHandler={boardChangeHandler}
                     quillContents={boardContents}
+                    quillImageHandler={imageHandler}
                 />
             </div>
 
