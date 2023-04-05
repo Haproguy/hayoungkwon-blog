@@ -4,11 +4,9 @@ import { dateFormatYDM } from '@/etc/etc';
 
 export default function postImage(req, res) {
     if (req.method === 'POST') {
-        const { uploadImg } = req.body;
-    
         const storage = getStorage(firebaseApp);
-        const storageRef = ref(storage, `board-image/${dateFormatYDM + uploadImg.name}`);
-        uploadBytes(storageRef, uploadImg)
+        const storageRef = ref(storage, `board-image/${dateFormatYDM + req.body.filename}`);
+        uploadBytes(storageRef, req.body.uploadImg)
             .then((snapshot) => {
                 getDownloadURL(snapshot.ref)
                     .then((url) => res.status(200).json({ imageURL: url }))

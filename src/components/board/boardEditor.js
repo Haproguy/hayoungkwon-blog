@@ -1,9 +1,9 @@
 import ReactQuill from "react-quill";
-import { useMemo } from 'react';
 import 'react-quill/dist/quill.snow.css';
+import { useMemo } from "react";
 
 export default function BoardEdit(props) {
-    const { quillImageHandler, quillRef, quillChangeHandler, quillContents } = props
+    const { quillRef, quillChangeHandler, quillContents, quillImageHandler } = props
 
     const modules = useMemo(() => ({
         toolbar: {
@@ -19,7 +19,9 @@ export default function BoardEdit(props) {
             ],
             handlers: { image: quillImageHandler }
         }
-    }))
+    }), [])
+
+
     return (
         <>
             <ReactQuill
