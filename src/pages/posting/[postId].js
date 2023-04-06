@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { getDatabase, ref, get, child } from "firebase/database";
+import { firebaseApp } from "@/firebaseConfig";
+
 import axios from 'axios';
 
 export default function ReadPage(props) {
@@ -11,6 +14,7 @@ export default function ReadPage(props) {
     const [read, setRead] = useState();
     const router = useRouter();
 
+    console.log(read);
     if (!read) {
         return (
             <div>
@@ -22,8 +26,10 @@ export default function ReadPage(props) {
     return (
         <>
             <h1>{read.readData.title}</h1>
-            <div>{read.readData.content}</div>
-            <div>{read.readData.date}</div>
+
+            {/* <div dangerouslySetInnerHTML={{ __html: read.readData.contents }} /> */}
+            <div>글내용</div>
+            <div>날짜</div>
             <button onClick={() => {
                 router.push('/posting')
             }}>목록으로</button>
@@ -32,12 +38,27 @@ export default function ReadPage(props) {
 }
 
 export async function getServerSideProps(context) {
+
     const id = context.params.postId;
-    const res = await axios.get(`https://next-blog-d9312-default-rtdb.firebaseio.com/posting/${id}.json`)
-    const resData = res.data;
-    return {
-        props: {
-            readData: resData
-        }
-    }
+
+    const db = getDatabase(firebaseApp);
+
+        const readRef = ref(db);
+        get(child(readRef, `posting/${id}`))
+            .then((snapshot) => {
+                console.log(snapshot.val());
+                return {
+                    props: {
+                        readData: '인생망함'
+                    }
+                }
+            })
+            .catch((err)=>{
+                return{
+                    props : {
+                        readData : err
+                    }
+                }
+            })
 }
+

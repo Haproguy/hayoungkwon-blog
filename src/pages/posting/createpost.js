@@ -49,6 +49,7 @@ export default function WritePage() {
             })
     }
 
+    //이미지 첨부를 위한 이미지 핸들러 함수
     const imageHandler = () => {
         const input = document.createElement('input');
 
