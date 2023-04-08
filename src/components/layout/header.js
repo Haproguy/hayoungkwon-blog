@@ -3,7 +3,7 @@ import styles from './header.module.scss';
 import { useEffect, useRef, useState, useMemo } from 'react';
 
 export default function Header(props) {
-    const scrollRef = useRef();
+    const scrollRef = useRef(null);
 
     useEffect(() => {
         window.addEventListener('scroll', () => {
