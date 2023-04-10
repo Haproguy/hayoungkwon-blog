@@ -24,7 +24,9 @@
     color: $mint;
 
     a {
+        font-size: $large;
         color: $mint;
+        text-align: center;
     }
 
 }
@@ -36,7 +38,7 @@
 
     a {
         color: $mint;
-        font-size: $small;
+        font-size: $default;
         transition: 0.1s all;
 
         &:hover {
@@ -50,12 +52,14 @@
 }
 
 
-@media (min-width: ($breakpoing_tablet)) {
+@media (max-width: ($breakpoing_tablet)) {
     .blogName {
-        font-size: $largest;
+        a {
+            font-size: $default;
+        }
     }
 
     .headerNavigation a {
-        font-size: $large;
+        font-size: $small;
     }
 }

@@ -18,13 +18,14 @@ export default function Header(props) {
     return (
         <header className={styles.header} ref={scrollRef} >
             <div className={styles.blogName}>
-                {props.blogName}
+                <Link href='/'>
+                    {props.blogName}
+                </Link>
             </div>
             <nav>
                 <ul className={styles.headerNavigation}>
                     <li><Link href='/'>Log-in</Link></li>
                     <li><Link href='/posting'>Post</Link></li>
-                    <li><Link href='https://github.com/Haproguy/hayoungkwon-blog'>Git</Link></li>
                 </ul>
             </nav>
         </header>

@@ -6,10 +6,11 @@ export default function AppLayout(props) {
     return (
         <>
             <div className='layout'>
-                <Header />
+                <Header
+                    blogName={'HaYoungKwon board'} />
                 <div className="middle">
                     <Sidebar />
-                    
+
                     <main>
                         {props.children}
                     </main>

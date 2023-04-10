@@ -1,19 +1,32 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { getDatabase, ref, get, child } from "firebase/database";
+import { getDatabase, ref, get } from "firebase/database";
 import { firebaseApp } from "@/firebaseConfig";
 import axios from 'axios';
+import Link from 'next/link';
 
 export default function ReadPage(props) {
     const { readData, postId } = props;
 
     useEffect(() => {
         setRead(readData);
-    }, [])
+    }, []);
 
     const [read, setRead] = useState();
     const router = useRouter();
-    console.log(read);
+
+    const deleteHandler = async () => {
+        const res = await axios.post('/api/posting/deletepost', { postId: postId });
+        const resData = res.data;
+
+        if (resData.message === 'complete') {
+            alert('삭제되었습니다.');
+            router.push('/posting')
+        } else {
+            alert('권한이 없습니다.')
+        }
+    };
+
 
     if (!read) {
         return (
@@ -36,7 +49,13 @@ export default function ReadPage(props) {
             <button onClick={() => {
                 router.push('/posting')
             }}>목록으로</button>
-            <div >삭제하기</div>
+            <div onClick={deleteHandler}>삭제하기</div>
+            <Link href={{
+                pathname: '/posting/updatepost/[updateId]',
+                query: { postId: postId }
+            }}
+                as={`/posting/updatepost/${postId}`}>수정하기</Link>
+
         </>
     );
 }

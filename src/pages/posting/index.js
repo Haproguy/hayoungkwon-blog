@@ -4,6 +4,8 @@ import styles from './posting.module.scss';
 
 import PostItem from '@/components/board/postItem';
 import { useEffect, useState } from 'react';
+import { getDatabase, ref, get } from 'firebase/database';
+import { firebaseApp } from '@/firebaseConfig';
 
 export default function PostList(props) {
     const [postList, setPostList] = useState();
@@ -14,7 +16,7 @@ export default function PostList(props) {
             setPostList(false);
         }
         setPostList(postData);
-    }, [])
+    }, [postList])
 
 
     if (!postList) {
@@ -50,16 +52,19 @@ export default function PostList(props) {
 
 export async function getServerSideProps(context) {
     try {
-        const res = await axios.get('https://next-blog-d9312-default-rtdb.firebaseio.com/posting.json');
-        const resData = res.data;
+        const db = getDatabase(firebaseApp);
+        const readRef = ref(db, `posting`);
+        const snapshot = await get(readRef);
+        const listData = snapshot.val();
+
         const dataArr = [];
 
-        for (const key in resData) {
+        for (const key in listData) {
             dataArr.push({
                 id: key,
-                title: resData[key].title,
-                content: resData[key].content,
-                date: resData[key].date
+                title: listData[key].title,
+                content: listData[key].content,
+                date: listData[key].date
             })
         }
         return {
@@ -67,6 +72,10 @@ export async function getServerSideProps(context) {
         }
     }
     catch (error) {
-        console.log(error);
+        return {
+            props: {
+                message: 'fail'
+            }
+        }
     }
 }

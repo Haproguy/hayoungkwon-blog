@@ -7,7 +7,6 @@ export default async function postList(req, res) {
         res.status(200).json(jsonData);
 
     } catch (error) {
-        console.log(error);
         res.status(500).send('server error' + error);
     }
 }

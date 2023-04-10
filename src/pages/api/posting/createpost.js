@@ -1,4 +1,4 @@
-import { getDatabase, set, push, ref } from 'firebase/database';
+import { getDatabase, push, ref } from 'firebase/database';
 import { firebaseApp } from '@/firebaseConfig';
 
 export default function createPost(req, res) {

@@ -76,7 +76,6 @@ export default function WritePage() {
             postdate: postDate
         })
             .then((res) => {
-                console.log(res.data);
                 alert('작성되었습니다.');
                 router.push('/posting');
             })
