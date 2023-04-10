@@ -1,10 +1,12 @@
 import { getDatabase, ref, get, set } from "firebase/database";
 import { firebaseApp } from "@/firebaseConfig";
 import { getStorage, uploadBytes, getDownloadURL } from "firebase/storage";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import styles from '../createPost.module.scss'
 import { dateFormatYDM } from "@/etc/etc";
 import dynamic from "next/dynamic";
+import axios from "axios";
+import { useRouter } from "next/router";
 
 import Button from "@/components/UI/button";
 
@@ -13,15 +15,14 @@ const BoardEdit = dynamic(() => import('@/components/board/boardEditor'), {
 })
 
 export default function UploadPost(props) {
-    const { readData } = props;
 
-
+    const { readData, postId } = props;
     const [boardContents, setBoardContents] = useState('');
     const [imgUrl, setImgUrl] = useState('');
+    const router = useRouter();
 
     useEffect(() => {
         setBoardContents(readData.content);
-
         if (imgUrl !== '') {
             const editor = editorRef.current.getEditor();
             const range = editor.getSelection();
@@ -30,7 +31,6 @@ export default function UploadPost(props) {
         }
     }, [imgUrl])
     const postDate = dateFormatYDM();
-
     const titleRef = useRef(null);
     const editorRef = useRef(null);
 
@@ -59,6 +59,29 @@ export default function UploadPost(props) {
             }
         })
     }
+    console.log(boardContents);
+
+    const boardClickHandler = () => {
+        axios.post('/api/posting/updatepost', {
+            title: titleRef.current.value,
+            content: boardContents,
+            postdate: postDate,
+            postKey: postId
+        })
+            .then((res) => {
+                console.log(res.data);
+                alert('수정되었습니다.');
+                router.push('/posting');
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+
+    const boardChangeHandler = useCallback((contents) => {
+        setBoardContents(contents);
+    }, []);
+
 
     if (!readData) {
         return (<div>
@@ -82,11 +105,13 @@ export default function UploadPost(props) {
 
                 <Button
                     btnText='수정완료'
+                    btnClickHandler={boardClickHandler}
                 />
             </div>
             <div className={styles.contentsWrap}>
                 <BoardEdit
                     quillRef={editorRef}
+                    quillChangeHandler={boardChangeHandler}
                     quillContents={boardContents}
                     quillImageHandler={imageHandler}
                 />
