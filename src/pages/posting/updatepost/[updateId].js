@@ -14,16 +14,8 @@ const BoardEdit = dynamic(() => import('@/components/board/boardEditor'), {
 
 export default function UploadPost(props) {
     const { readData } = props;
-    console.log(props);
 
-    if (!readData) {
-        return (<div>
-            대기중
-        </div>
-        );
-    }
 
-    console.log(props);
     const [boardContents, setBoardContents] = useState('');
     const [imgUrl, setImgUrl] = useState('');
 
@@ -67,6 +59,14 @@ export default function UploadPost(props) {
             }
         })
     }
+
+    if (!readData) {
+        return (<div>
+            대기중
+        </div>
+        );
+    }
+
     return (
         <div className={styles.createPost}>
             <h1>글작성</h1>
@@ -78,18 +78,17 @@ export default function UploadPost(props) {
                     minLength={1}
                     maxLength={26}
                     ref={titleRef}
-                    value={readData.title} />
+                    defaultValue={readData.title} />
 
                 <Button
-                    btnText='작성완료'
+                    btnText='수정완료'
                 />
             </div>
             <div className={styles.contentsWrap}>
                 <BoardEdit
                     quillRef={editorRef}
-
                     quillContents={boardContents}
-                    quillImageHandler={imageHandler}    
+                    quillImageHandler={imageHandler}
                 />
             </div>
 
@@ -111,11 +110,4 @@ export async function getServerSideProps(context) {
             readData: readData
         }
     }
-    // } catch (error) {
-    //     return {
-    //         props: {
-    //             readData: `${error}`
-    //         }
-    //     }
-    // }
 }

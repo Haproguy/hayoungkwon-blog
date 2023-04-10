@@ -79,6 +79,9 @@ export default function WritePage() {
                 alert('작성되었습니다.');
                 router.push('/posting');
             })
+            .catch((error) => {
+                console.log(error)
+            })
     }
 
     return (

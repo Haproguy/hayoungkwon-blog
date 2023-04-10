@@ -8,7 +8,7 @@ import { getDatabase, ref, get } from 'firebase/database';
 import { firebaseApp } from '@/firebaseConfig';
 
 export default function PostList(props) {
-    const [postList, setPostList] = useState();
+    const [postList, setPostList] = useState(null);
     const { postData } = props;
 
     useEffect(() => {
@@ -22,7 +22,8 @@ export default function PostList(props) {
     if (!postList) {
         return (
             <>
-                <div>loading....</div>
+                <div>작성된 글이 없습니다.</div>
+                <Link href='/posting/createpost'>글작성</Link>
             </>
         );
     }
