@@ -36,14 +36,13 @@ export function loginGoogle() {
 
 
 export function logining() {
-    const loginUser = auth.currentUser;
+    const loginingUser = sessionStorage.key(0);
+    console.log(loginingUser);
 
-    if (loginUser) {
-        console.log(loginUser);
-        return loginUser.displayName;
+    if (loginingUser == null) {
+        return false;
     } else {
-        console.log('로그인하세요');
-        return null;
+        return true;
     }
 }
 

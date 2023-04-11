@@ -1,29 +1,43 @@
 import Link from 'next/link';
-import axios from 'axios';
 import styles from './posting.module.scss';
 
 import PostItem from '@/components/board/postItem';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import { getDatabase, ref, get } from 'firebase/database';
 import { firebaseApp } from '@/firebaseConfig';
+import { logining, loginGoogle } from '@/logins';
 
 export default function PostList(props) {
+    const router = useRouter();
     const [postList, setPostList] = useState(null);
     const { postData } = props;
+
 
     useEffect(() => {
         if (postList) {
             setPostList(false);
         }
         setPostList(postData);
-    }, [postList])
+    }, [postList]);
 
+    const discriminateLogin = () => {
+        logining();
+
+        if (logining()) {
+            router.push('/posting/createpost')
+        } else {
+            if (window.confirm('로그인 후 이용하실수 있습니다.')) {
+                loginGoogle();
+            }
+        }
+    }
 
     if (!postList) {
         return (
             <>
                 <div>작성된 글이 없습니다.</div>
-                <Link href='/posting/createpost'>글작성</Link>
+                <div onClick={discriminateLogin}>글 작성</div>
             </>
         );
     }
@@ -31,7 +45,7 @@ export default function PostList(props) {
     return (
         <div className={styles.postingWrap}>
             <h1>게시글</h1>
-            <Link href='/posting/createpost'>글작성</Link>
+            <div onClick={discriminateLogin}>글작성</div>
 
             <div className={styles.board}>
                 {

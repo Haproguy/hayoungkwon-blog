@@ -7,9 +7,7 @@ import GitPost from '@/components/index/gitPost';
 
 export default function MainPage() {
     const [styleTrigger, setStyleTrigger] = useState(true);
-    const changeTrigger = () => {
-        setStyleTrigger(pre => !pre)
-    }
+
 
     return (
         <div className={styles.main}>

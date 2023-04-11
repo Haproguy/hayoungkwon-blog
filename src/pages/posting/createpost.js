@@ -19,6 +19,7 @@ export default function WritePage() {
     //필요한 상태값 , ref 정의
     const [imgUrl, setImgUrl] = useState('');
     const [boardContents, setBoardContents] = useState('');
+    const [writer, setWriter] = useState('')
 
     const titleRef = useRef(null);
     const editorRef = useRef(null);
@@ -27,6 +28,12 @@ export default function WritePage() {
 
     //이미지업로드를 위한 함수를 이펙트롤 정의 이미지 업로드 핸들러가 비동기 함수로 되었으므로 state값이 바뀌고 랜더링이 되는 시점을 이용함
     useEffect(() => {
+        if (typeof window !== undefined) {
+            const writerKey = sessionStorage.key(0);
+            const writerName = JSON.parse(sessionStorage.getItem(writerKey));
+            setWriter(writerName.displayName);
+        }
+
         if (imgUrl !== '') {
             const editor = editorRef.current.getEditor();
             const range = editor.getSelection();
@@ -73,7 +80,8 @@ export default function WritePage() {
         axios.post('/api/posting/createpost', {
             title: titleRef.current.value,
             content: boardContents,
-            postdate: postDate
+            postdate: postDate,
+            writer: writer
         })
             .then((res) => {
                 alert('작성되었습니다.');

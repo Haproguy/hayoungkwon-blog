@@ -1,18 +1,20 @@
 import Link from 'next/link';
 import styles from './header.module.scss';
-import { useEffect, useRef, useState, useMemo } from 'react';
+import { useEffect, useRef } from 'react';
 
 export default function Header(props) {
     const { blogName, loginHandler, logoutHandler, userName } = props;
 
-    const scrollRef = useRef(null);
+    const scrollRef = useRef();
 
     useEffect(() => {
         window.addEventListener('scroll', () => {
-            if (window.scrollY == 0) {
-                scrollRef.current.style.opacity = 1;
-            } else {
-                scrollRef.current.style.opacity = 0.8;
+            if (scrollRef.current) {
+                if (window.scrollY == 0) {
+                    scrollRef.current.style.opacity = 1;
+                } else {
+                    scrollRef.current.style.opacity = 0.8;
+                }
             }
         })
     }, [])
