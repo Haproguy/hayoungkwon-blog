@@ -6,9 +6,11 @@ import {
     setPersistence,
     browserSessionPersistence
 } from "firebase/auth";
+import { firebaseApp } from '@/firebaseConfig';
 
-const auth = getAuth();
+const auth = getAuth(firebaseApp);
 const provider = new GoogleAuthProvider();
+
 export function loginGoogle() {
     signInWithPopup(auth, provider)
         .then((result) => {

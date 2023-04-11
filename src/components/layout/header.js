@@ -3,6 +3,8 @@ import styles from './header.module.scss';
 import { useEffect, useRef, useState, useMemo } from 'react';
 
 export default function Header(props) {
+    const { blogName, loginHandler, logoutHandler, userName } = props;
+
     const scrollRef = useRef(null);
 
     useEffect(() => {
@@ -19,12 +21,13 @@ export default function Header(props) {
         <header className={styles.header} ref={scrollRef} >
             <div className={styles.blogName}>
                 <Link href='/'>
-                    {props.blogName}
+                    {blogName}
                 </Link>
             </div>
+            {userName && <p className={styles.userName}>{userName}님 안녕하세요!</p>}
             <nav>
                 <ul className={styles.headerNavigation}>
-                    <li><Link href='/'>Log-in</Link></li>
+                    {userName == null ? <li onClick={loginHandler}><a>Log-in</a></li> : <li onClick={logoutHandler}><a>Log-out</a></li>}
                     <li><Link href='/posting'>Post</Link></li>
                 </ul>
             </nav>
