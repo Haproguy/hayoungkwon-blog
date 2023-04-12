@@ -5,6 +5,9 @@ import Greetings from '@/components/index/greetings';
 import Spec from '@/components/index/spec';
 import GitPost from '@/components/index/gitPost';
 
+import Modal from '@/components/UI/modal';
+import Slick from '@/components/UI/slick';
+
 export default function MainPage() {
     //스크롤 높이에 따라 컴포넌트가 호출되는 트리거 true가 되면 해당 컴포넌트가 호출됨
     const [styleTrigger, setStyleTrigger] = useState({
@@ -43,11 +46,17 @@ export default function MainPage() {
     //스크롤 높이 420, 1000에서 이벤트 발생
     //380이상에서 styleTrigger.spec = true , 960이상에서 styleTrigger.github = ture
     useEffect(() => {
+
+
         window.addEventListener('scroll', handleScroll);
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, [handleScroll]);
+
+    useEffect(() => {
+        window.scrollTo({ top: 0 });
+    }, [])
 
     const [modalTrigger, setModalTrigger] = useState(false);
     const modalClickHandler = () => {
@@ -69,6 +78,16 @@ export default function MainPage() {
             <div className={`${styles.container} ${styles.gitPostWrap}`}>
                 {styleTrigger.github && <GitPost />}
             </div>
+
+            {modalTrigger &&
+                <div className={styles.modalWrapper}>
+                    <Modal>
+                        <Slick />
+                    </Modal>
+                </div>
+            }
+
+            {modalTrigger && <div className={styles.back} onClick={modalClickHandler}>백그라운드</div>}
         </div >
     );
 }

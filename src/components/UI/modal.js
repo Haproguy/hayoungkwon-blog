@@ -1,10 +1,7 @@
 import styles from './modal.module.scss';
 
-export default function Modal() {
+export default function Modal(props) {
     return (
-        <>
-            <div className={styles.modalBackground}>모달백</div>
-            <div className={styles.modal}>모달</div>
-        </>
+        <div className={styles.modal}>{props.children}</div>
     );
 }
