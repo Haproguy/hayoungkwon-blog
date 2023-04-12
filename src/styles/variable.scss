@@ -15,3 +15,15 @@ $small : 0.8rem;
 $default : 1.1rem;
 $large : 1.6rem;
 $largest : 2.4rem;
+
+@mixin animation ($delay , $duration , $name) {
+    animation-delay: $delay;
+    animation-duration: $duration;
+    animation-name: $name;
+}
+
+@mixin keyframe($animation-name) {
+    @keyframes #{$animation-name} {
+        @content;
+    }
+}

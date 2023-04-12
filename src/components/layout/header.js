@@ -5,7 +5,7 @@ import { useEffect, useRef } from 'react';
 export default function Header(props) {
     const { blogName, loginHandler, logoutHandler, userName } = props;
 
-    const scrollRef = useRef();
+    const scrollRef = useRef(null);
 
     useEffect(() => {
         window.addEventListener('scroll', () => {
