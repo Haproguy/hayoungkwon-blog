@@ -1,5 +1,6 @@
 import Header from './header';
 import Sidebar from './sidebar';
+import Footer from './footer';
 import { useEffect, useState } from 'react';
 import { loginGoogle, logout } from '@/logins';
 import { useRouter } from 'next/router';
@@ -48,6 +49,7 @@ export default function AppLayout(props) {
                     </main>
                 </div>
             </div>
+            <Footer />
         </>
     );
 }

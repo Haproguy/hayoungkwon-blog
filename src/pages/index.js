@@ -1,18 +1,12 @@
 import styles from '@/styles/index.module.scss';
 import { useEffect, useState, useRef, useCallback } from 'react';
-
-import Greetings from '@/components/index/greetings';
 import Spec from '@/components/index/spec';
 import GitPost from '@/components/index/gitPost';
-
-import Modal from '@/components/UI/modal';
-import Slick from '@/components/UI/slick';
 
 export default function MainPage() {
     //스크롤 높이에 따라 컴포넌트가 호출되는 트리거 true가 되면 해당 컴포넌트가 호출됨
     const [styleTrigger, setStyleTrigger] = useState({
         spec: false,
-        greetings: false,
         github: false
     });
     //스크롤높이를 참조
@@ -29,25 +23,17 @@ export default function MainPage() {
             setStyleTrigger(prevState => ({ ...prevState, spec: false }));
         }
 
-        if (scrollDown && scrollY >= 420 && !styleTrigger.greetings) {
-            setStyleTrigger(prevState => ({ ...prevState, greetings: true }));
-        } else if (!scrollDown && scrollY < 420 && styleTrigger.greetings) {
-            setStyleTrigger(prevState => ({ ...prevState, greetings: false }));
-        }
-
-        if (scrollDown && scrollY >= 1000 && !styleTrigger.github) {
+        if (scrollDown && scrollY >= 450 && !styleTrigger.github) {
             setStyleTrigger(prevState => ({ ...prevState, github: true }));
-        } else if (!scrollDown && scrollY < 1000 && styleTrigger.github) {
+        } else if (!scrollDown && scrollY < 450 && styleTrigger.github) {
             setStyleTrigger(prevState => ({ ...prevState, github: false }));
         }
     }, [styleTrigger]);
 
 
-    //스크롤 높이 420, 1000에서 이벤트 발생
+    //스크롤 높이 400
     //380이상에서 styleTrigger.spec = true , 960이상에서 styleTrigger.github = ture
     useEffect(() => {
-
-
         window.addEventListener('scroll', handleScroll);
         return () => {
             window.removeEventListener('scroll', handleScroll);
@@ -58,36 +44,15 @@ export default function MainPage() {
         window.scrollTo({ top: 0 });
     }, [])
 
-    const [modalTrigger, setModalTrigger] = useState(false);
-    const modalClickHandler = () => {
-        setModalTrigger(pre => !pre)
-    }
-
     return (
         <div className={styles.main}>
             <div className={`${styles.container} ${styles.specWrap}`}>
                 <Spec />
             </div>
 
-            <div className={`${styles.container} ${styles.greetingsWrap}`}>
-                {styleTrigger.greetings && <Greetings
-                    modalTrigger={modalTrigger}
-                    modalClickHandler={modalClickHandler} />}
-            </div>
-
             <div className={`${styles.container} ${styles.gitPostWrap}`}>
                 {styleTrigger.github && <GitPost />}
             </div>
-
-            {modalTrigger &&
-                <div className={styles.modalWrapper}>
-                    <Modal>
-                        <Slick />
-                    </Modal>
-                </div>
-            }
-
-            {modalTrigger && <div className={styles.back} onClick={modalClickHandler}>백그라운드</div>}
         </div >
     );
 }

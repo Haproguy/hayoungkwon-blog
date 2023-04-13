@@ -2,6 +2,7 @@ import '@/styles/globals.scss';
 import '@/styles/layout.scss';
 
 import AppLayout from '@/components/layout/layout';
+import Footer from '../components/layout/footer';
 
 export default function App({ Component, pageProps }) {
   const recentTitle = [
@@ -17,8 +18,11 @@ export default function App({ Component, pageProps }) {
   ]
 
   return (
-    <AppLayout>
-      <Component {...pageProps} />
-    </AppLayout>
+    <>
+      <AppLayout>
+        <Component {...pageProps} />
+      </AppLayout>
+
+    </>
   );
 }

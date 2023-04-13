@@ -1,0 +1,55 @@
+@import 'src/styles/variable.scss';
+
+.readPage {
+    width: 70%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1%;
+
+    margin: {
+        top: 1%;
+    }
+
+    .nameNdate {
+        display: flex;
+        gap: 15px;
+
+        margin: {
+            top: 1%;
+            bottom: 1%;
+        }
+
+        ;
+    }
+
+    .postContentsWrap {
+        width: 100%;
+        font-size: $large;
+        margin-bottom: 5%;
+    }
+
+    .btnNav {
+        display: flex;
+        gap: 15px;
+
+        .goList,
+        .delete,
+        .update {
+            padding: 5px;
+            border-radius: 5px;
+            background-color: $mint;
+            color: black;
+            cursor: pointer;
+
+            &:hover {
+                background-color: $fail;
+            }
+
+            &:active {
+                background-color: $complete;
+            }
+        }
+    }
+}

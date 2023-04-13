@@ -22,21 +22,6 @@ export default function Sidebar(props) {
                         Front-End Developer
                     </p>
                 </div>
-
-                <div className={styles.recentPosts}>
-                    <h3>최근 게시글</h3>
-                    <ul>
-                        <li>
-                            <a href="#">Post 1</a>
-                        </li>
-                        <li>
-                            <a href="#">Post 2</a>
-                        </li>
-                        <li>
-                            <a href="#">Post 3</a>
-                        </li>
-                    </ul>
-                </div>
             </div>
 
             <div className={styles.sideToggle}>

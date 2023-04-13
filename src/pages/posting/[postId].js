@@ -45,7 +45,7 @@ export default function ReadPage(props) {
     }
 
     return (
-        <>
+        <div className={styles.readPage}>
             <h1>{read.title}</h1>
             <div className={styles.nameNdate}>
                 <div>작성자 : {read.writer}</div>
@@ -58,20 +58,20 @@ export default function ReadPage(props) {
 
 
             <div className={styles.btnNav}>
-                <button onClick={() => {
+                <div className={styles.goList} onClick={() => {
                     router.push('/posting')
-                }}>목록으로</button>
-                {logining() && <div onClick={deleteHandler}>삭제하기</div>}
+                }}>목록으로</div>
+                {logining() && <div className={styles.delete} onClick={deleteHandler}>삭제하기</div>}
 
                 {logining() &&
-                    <Link href={{
+                    <Link className={styles.update} href={{
                         pathname: '/posting/updatepost/[updateId]',
                         query: { postId: postId }
                     }}
                         as={`/posting/updatepost/${postId}`}>수정하기</Link>
                 }
             </div>
-        </>
+        </div>
     );
 }
 
