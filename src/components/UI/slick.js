@@ -2,6 +2,7 @@ import styles from './slick.module.scss'
 import Slider from "react-slick";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import Image from 'next/image';
 
 export default function Slick(props) {
     const settings = {
@@ -16,14 +17,17 @@ export default function Slick(props) {
         <div className={styles.slider}>
             <Slider {...settings}>
                 <div className={`${styles.slick}`}>
-                    <h2>PROFILE</h2>
                     <div className={styles.slickCarousel1}>
-                        <div className={styles.modalImg}>이미지</div>
-                        <div>
-                            <p>1</p>
-                            <p>1</p>
-                            <p>1</p>
-                            <p>1</p>
+                        <h2>PROFILE</h2>
+                        <div className={styles.contents}>
+                            <div className={styles.modalImg}>
+                                <img src="/images/hayoungkwonBanner.jpg" alt="이미지" />
+                            </div>
+                            <div className = {styles.listContent}>
+                                <p>이름 : 하영권</p>
+                                <p>생년월일 : 94년 4월 26일</p>
+                                <p></p>
+                            </div>
                         </div>
                     </div>
                 </div>

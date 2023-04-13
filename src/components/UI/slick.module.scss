@@ -8,12 +8,20 @@
         .slickCarousel3,
         .slickCarousel2,
         .slickCarousel4 {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            height: 100%;
 
-            .modalImg {
-                background-image: url('/public/images/hayoungkwonBanner.jpg');
+            .contents {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+
+                .modalImg {
+                    width: 50%;
+
+                    img {
+                        width: 60%;
+                    }
+                }
             }
         }
 
