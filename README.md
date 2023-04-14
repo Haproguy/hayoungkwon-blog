@@ -1,4 +1,6 @@
 index.js
+
+{index.js
 import styles from '@/styles/index.module.scss';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import Spec from '@/components/index/spec';
@@ -57,3 +59,7 @@ export default function MainPage() {
         </div >
     );
 }
+}
+
+후기
+{간단한 게시판을 만들어보려고 했습니다. 하지만 firebase라던가 NEXT.js등의 조금은 새로운 기능을 공부하면서 만들어 보려하니 생각했던것보다 시간이 오래걸렸던것 같습니다. 앞으로 계속 공부해나가면서 업데이트 해보겠습니다.}
