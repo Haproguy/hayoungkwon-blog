@@ -11,18 +11,30 @@ import styles from './readPost.module.scss';
 export default function ReadPage(props) {
     const { readData, postId } = props;
     const [read, setRead] = useState();
+    const [loginUser, setLoginUser] = useState();
     const router = useRouter();
 
     useEffect(() => {
         setRead(readData);
+        if (logining()) {
+            setLoginUser(
+                JSON.parse(sessionStorage.getItem(logining())).displayName
+            );
+        } else {
+            setLoginUser(null);
+        }
     }, []);
 
     const deleteHandler = async () => {
         logining();
         if (logining()) {
-            const res = await axios.post('/api/posting/deletepost', { postId: postId });
+            const res = await axios.post('/api/posting/deletepost',
+                {
+                    postId: postId,
+                    writerName: read.writer,
+                    loginId: loginUser
+                });
             const resData = res.data;
-
             if (resData.message === 'complete') {
                 alert('삭제되었습니다.');
                 router.push('/posting')
@@ -63,12 +75,12 @@ export default function ReadPage(props) {
                 }}>목록으로</div>
                 {logining() && <div className={styles.delete} onClick={deleteHandler}>삭제하기</div>}
 
-                {logining() &&
+                {loginUser == read.writer ?
                     <Link className={styles.update} href={{
                         pathname: '/posting/updatepost/:updateId',
                         query: { postId: postId }
                     }}
-                        as={`/posting/updatepost/${postId}`}>수정하기</Link>
+                        as={`/posting/updatepost/${postId}`}>수정하기</Link> : null
                 }
             </div>
         </div>

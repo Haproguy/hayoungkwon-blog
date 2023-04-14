@@ -13,7 +13,7 @@ export default function updatePost(req, res) {
         };
 
         const updates = `/posting/${postKey}`;
-        
+
         return update(ref(db, updates), postData)
             .then(() => {
                 res.status(200).json({ message: "update" });

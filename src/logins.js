@@ -40,7 +40,7 @@ export function logining() {
     if (loginingUser == null) {
         return false;
     } else {
-        return true;
+        return loginingUser;
     }
 }
 
