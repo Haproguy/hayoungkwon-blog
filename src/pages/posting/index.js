@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import styles from './posting.module.scss';
 
 import PostItem from '@/components/board/postItem';
@@ -35,17 +34,17 @@ export default function PostList(props) {
 
     if (!postList) {
         return (
-            <>
+            <div className={styles.postingWrap}>
                 <div>작성된 글이 없습니다.</div>
-                <div onClick={discriminateLogin}>글 작성</div>
-            </>
+                <div className={styles.createPost} onClick={discriminateLogin}>글 작성</div>
+            </div>
         );
     }
 
     return (
         <div className={styles.postingWrap}>
             <h1>게시글</h1>
-            <div onClick={discriminateLogin}>글작성</div>
+            <div className={styles.createPost} onClick={discriminateLogin}>글작성</div>
 
             <div className={styles.board}>
                 {

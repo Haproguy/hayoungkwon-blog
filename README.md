@@ -1,38 +1,59 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+index.js
+import styles from '@/styles/index.module.scss';
+import { useEffect, useState, useRef, useCallback } from 'react';
+import Spec from '@/components/index/spec';
+import GitPost from '@/components/index/gitPost';
 
-## Getting Started
+export default function MainPage() {
+    //스크롤 높이에 따라 컴포넌트가 호출되는 트리거 true가 되면 해당 컴포넌트가 호출됨
+    const [styleTrigger, setStyleTrigger] = useState({
+        spec: false,
+        github: false
+    });
+    //스크롤높이를 참조
+    const scroll = useRef(0);
 
-First, run the development server:
+    //스크롤의 높이에 따른 상태 트리거 변경 , useCall으로 handleScroll함수를 memoiz
+    const handleScroll = useCallback(() => {
+        const scrollY = window.scrollY;
+        const scrollDown = scrollY > scroll.current;
+        scroll.current = scrollY;
+        if (scrollDown && scrollY >= 0 && !styleTrigger.spec) {
+            setStyleTrigger(prevState => ({ ...prevState, spec: true }));
+        } else if (!scrollDown && scrollY < 0 && styleTrigger.spec) {
+            setStyleTrigger(prevState => ({ ...prevState, spec: false }));
+        }
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+        if (scrollDown && scrollY >= 450 && !styleTrigger.github) {
+            setStyleTrigger(prevState => ({ ...prevState, github: true }));
+        } else if (!scrollDown && scrollY < 450 && styleTrigger.github) {
+            setStyleTrigger(prevState => ({ ...prevState, github: false }));
+        }
+    }, [styleTrigger]);
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+    //스크롤 높이 400
+    //380이상에서 styleTrigger.spec = true , 960이상에서 styleTrigger.github = ture
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, [handleScroll]);
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+    useEffect(() => {
+        window.scrollTo({ top: 0 });
+    }, [])
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+    return (
+        <div className={styles.main}>
+            <div className={`${styles.container} ${styles.specWrap}`}>
+                <Spec />
+            </div>
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+            <div className={`${styles.container} ${styles.gitPostWrap}`}>
+                {styleTrigger.github && <GitPost />}
+            </div>
+        </div >
+    );
+}

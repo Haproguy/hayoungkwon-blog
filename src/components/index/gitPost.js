@@ -13,7 +13,7 @@ export default function GitPost() {
             </div>
             <div className={styles.right}>
                 <div className={styles.rightTop}>
-                    <h3>프로젝트 깃허브</h3>
+                    <h2>프로젝트 깃허브</h2>
                     <Link href='https://github.com/Haproguy/hayoungkwon-blog'>
                         <img src="/images/visiting.png" alt="이미지" />
                     </Link>

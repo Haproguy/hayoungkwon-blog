@@ -56,3 +56,40 @@
         animation-fill-mode: both;
     }
 }
+
+@media (max-width: (1331px)) {
+    .gitPostWrap {
+
+        .left,
+        .right {
+            a {
+                img {
+                    width: 200px;
+                    height: 200px;
+                }
+            }
+        }
+    }
+
+}
+
+
+@media (max-width: ($breakpoing_tablet)) {
+    .gitPostWrap {
+
+        .left,
+        .right {
+            h2 {
+                font-size: $default;
+            }
+
+            a {
+                img {
+                    width: 100px;
+                    height: 100px;
+                }
+            }
+        }
+    }
+
+}
