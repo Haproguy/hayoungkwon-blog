@@ -1,65 +1,14 @@
-index.js
+#간단한 CRUD구현
 
-{index.js
-import styles from '@/styles/index.module.scss';
-import { useEffect, useState, useRef, useCallback } from 'react';
-import Spec from '@/components/index/spec';
-import GitPost from '@/components/index/gitPost';
+##NEXT.js와 firebase를 이용한 CRUD게시판
+##프로젝트 기간 22.03.23 ~ 22.04.13(04.14 지인분 피드백으로 수정후 재배포)
 
-export default function MainPage() {
-    //스크롤 높이에 따라 컴포넌트가 호출되는 트리거 true가 되면 해당 컴포넌트가 호출됨
-    const [styleTrigger, setStyleTrigger] = useState({
-        spec: false,
-        github: false
-    });
-    //스크롤높이를 참조
-    const scroll = useRef(0);
+###느낀점
+*생각보다 SSR의 기능과 장점에 대해 많은걸 알게 되었습니다
+*구체적으로는 posting의 list를 보여주는 페이지에서 의도적으로 클라이언트에서 데이터를 받아 페이지를 랜더링 해보았는데 초기 페이지를 랜더링하는 속도에서 큰 차이를 보여주었고 왜 SSR이 다시 사용되기 시작했는지 알수있었습니다.
 
-    //스크롤의 높이에 따른 상태 트리거 변경 , useCall으로 handleScroll함수를 memoiz
-    const handleScroll = useCallback(() => {
-        const scrollY = window.scrollY;
-        const scrollDown = scrollY > scroll.current;
-        scroll.current = scrollY;
-        if (scrollDown && scrollY >= 0 && !styleTrigger.spec) {
-            setStyleTrigger(prevState => ({ ...prevState, spec: true }));
-        } else if (!scrollDown && scrollY < 0 && styleTrigger.spec) {
-            setStyleTrigger(prevState => ({ ...prevState, spec: false }));
-        }
+###프로젝트를 진행하면서 힘들거나 아쉬웠던점
+1.NEXT.js 와 firebase라는 새로운 기술을 공부하며 프로젝트를 제작해보다 보니 제작하는 속도가 생각보다 느렸습니다. 그냥 react.js로 만들었다면 좀더 빠르게 만들수 있지 않았을까 생각됩니다
 
-        if (scrollDown && scrollY >= 450 && !styleTrigger.github) {
-            setStyleTrigger(prevState => ({ ...prevState, github: true }));
-        } else if (!scrollDown && scrollY < 450 && styleTrigger.github) {
-            setStyleTrigger(prevState => ({ ...prevState, github: false }));
-        }
-    }, [styleTrigger]);
+1.구체적으로는 firebase에서 hosting을 할때 꽤 고생했습니다. firebase에 일반적으로 배포를 할때 next.js의 api route기능과 getServerSideProps기능을 지원하지 않아서 다른방법을 찾아야 했고 firebase의 유료버전으로 전환하면 지원한다는 사실을 알게되어 조금은 허탈했습니다.
 
-
-    //스크롤 높이 400
-    //380이상에서 styleTrigger.spec = true , 960이상에서 styleTrigger.github = ture
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, [handleScroll]);
-
-    useEffect(() => {
-        window.scrollTo({ top: 0 });
-    }, [])
-
-    return (
-        <div className={styles.main}>
-            <div className={`${styles.container} ${styles.specWrap}`}>
-                <Spec />
-            </div>
-
-            <div className={`${styles.container} ${styles.gitPostWrap}`}>
-                {styleTrigger.github && <GitPost />}
-            </div>
-        </div >
-    );
-}
-}
-
-후기
-{간단한 게시판을 만들어보려고 했습니다. 하지만 firebase라던가 NEXT.js등의 조금은 새로운 기능을 공부하면서 만들어 보려하니 생각했던것보다 시간이 오래걸렸던것 같습니다. 앞으로 계속 공부해나가면서 업데이트 해보겠습니다.}
