@@ -1,5 +1,5 @@
-import { getDatabase, ref, get, set } from "firebase/database";
-import { firebaseApp } from "@/firebaseConfig";
+import { ref, get } from "firebase/database";
+import { database } from "@/firebaseConfig";
 import { getStorage, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useState, useEffect, useRef, useCallback } from "react";
 import styles from '../createPost.module.scss'
@@ -59,7 +59,6 @@ export default function UploadPost(props) {
             }
         })
     }
-    console.log(boardContents);
 
     const boardClickHandler = () => {
         axios.post('/api/posting/updatepost', {
@@ -123,7 +122,7 @@ export default function UploadPost(props) {
 
 export async function getServerSideProps(context) {
     const id = context.params.updateId;
-    const db = getDatabase(firebaseApp);
+    const db = database;
 
     const readRef = ref(db, `posting/${id}`);
     const snapshot = await get(readRef);

@@ -65,7 +65,7 @@ export default function ReadPage(props) {
 
                 {logining() &&
                     <Link className={styles.update} href={{
-                        pathname: '/posting/updatepost/[updateId]',
+                        pathname: '/posting/updatepost/:updateId',
                         query: { postId: postId }
                     }}
                         as={`/posting/updatepost/${postId}`}>수정하기</Link>
@@ -80,7 +80,7 @@ export async function getServerSideProps(context) {
 
     const db = getDatabase(firebaseApp);
     try {
-        const readRef = ref(db, `posting/${id}`);
+        const readRef = ref(db, `/posting/${id}`);
         const snapshot = await get(readRef);
         const readData = snapshot.val();
 

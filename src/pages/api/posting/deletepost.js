@@ -1,9 +1,9 @@
-import { getDatabase, ref, remove } from "firebase/database";
-import { firebaseApp } from "@/firebaseConfig";
+import { ref, remove } from "firebase/database";
+import { database } from "@/firebaseConfig";
 
 export default function deletepost(req, res) {
     const { postId } = req.body;
-    const db = getDatabase(firebaseApp);
+    const db = database;
     function deleteBlog(postId) {
         remove(ref(db, `/posting/${postId}`));
     }

@@ -1,23 +1,35 @@
 import styles from './posting.module.scss';
-
+import axios from 'axios';
 import PostItem from '@/components/board/postItem';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { getDatabase, ref, get } from 'firebase/database';
-import { firebaseApp } from '@/firebaseConfig';
 import { logining, loginGoogle } from '@/logins';
 
-export default function PostList(props) {
+export default function PostList() {
     const router = useRouter();
     const [postList, setPostList] = useState(null);
-    const { postData } = props;
-
 
     useEffect(() => {
-        if (postList) {
-            setPostList(false);
-        }
-        setPostList(postData);
+        axios.get('/api/posting/postlist')
+            .then((res) => {
+                const resdata = res.data;
+                if (res.data) {
+                    const dataArr = [];
+                    for (const key in resdata) {
+                        dataArr.push({
+                            id: key,
+                            title: resdata[key].title,
+                            content: resdata[key].content,
+                            date: resdata[key].date,
+                            writer: resdata[key].writer
+                        })
+                    }
+                    setPostList(dataArr);
+                } else {
+                    setPostList(false);
+                }
+            })
+            .catch(err => console.log(err))
     }, [postList]);
 
     const discriminateLogin = () => {
@@ -55,6 +67,7 @@ export default function PostList(props) {
                                 date={data.date}
                                 postImg={data.postImg ? data.postImg : null}
                                 postId={data.id}
+                                writer={data.writer}
                             />
                         );
                     })
@@ -64,32 +77,3 @@ export default function PostList(props) {
     );
 }
 
-export async function getServerSideProps(context) {
-    try {
-        const db = getDatabase(firebaseApp);
-        const readRef = ref(db, `posting`);
-        const snapshot = await get(readRef);
-        const listData = snapshot.val();
-
-        const dataArr = [];
-
-        for (const key in listData) {
-            dataArr.push({
-                id: key,
-                title: listData[key].title,
-                content: listData[key].content,
-                date: listData[key].date
-            })
-        }
-        return {
-            props: { postData: dataArr }
-        }
-    }
-    catch (error) {
-        return {
-            props: {
-                message: 'fail'
-            }
-        }
-    }
-}

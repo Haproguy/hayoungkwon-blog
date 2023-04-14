@@ -37,8 +37,6 @@ export function loginGoogle() {
 
 export function logining() {
     const loginingUser = sessionStorage.key(0);
-    console.log(loginingUser);
-
     if (loginingUser == null) {
         return false;
     } else {

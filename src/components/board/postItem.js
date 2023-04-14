@@ -2,13 +2,13 @@ import Link from 'next/link';
 import styles from './postBox.module.scss';
 
 export default function PostItem(props) {
-    const { postId, title, date, postImg } = props;
+    const { postId, title, date, postImg, writer } = props;
 
     return (
         <>
             <div className={styles.postItem}>
                 <Link href={{
-                    pathname: '/posting/[postId]',
+                    pathname: '/posting/:postId',
                     query: { postId: postId }
                 }}
                     as={`/posting/${postId}`}>
@@ -16,7 +16,7 @@ export default function PostItem(props) {
                     <div className={styles.itemContents}>
                         <h2>{title}</h2>
                         <div className={styles.date}>{date}</div>
-                        <div className={styles.postId}>작성자 : {postId.displayName}</div>
+                        <div className={styles.postId}>작성자 : {writer}</div>
                     </div>
                 </Link>
             </div>

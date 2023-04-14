@@ -1,12 +1,10 @@
-import { getDatabase, update, ref } from "firebase/database";
-import { firebaseApp } from '@/firebaseConfig';
+import { update, ref } from "firebase/database";
+import { database } from '@/firebaseConfig';
 
 export default function updatePost(req, res) {
     if (req.method === "POST") {
-        const db = getDatabase(firebaseApp);
+        const db = database;
         const { title, content, postdate, postKey } = req.body;
-        console.log(postKey);
-        console.log(content);
 
         const postData = {
             title: title,
@@ -14,9 +12,8 @@ export default function updatePost(req, res) {
             date: postdate + '(수정됨)',
         };
 
-        const updates = `posting/${postKey}`;
-
-
+        const updates = `/posting/${postKey}`;
+        
         return update(ref(db, updates), postData)
             .then(() => {
                 res.status(200).json({ message: "update" });

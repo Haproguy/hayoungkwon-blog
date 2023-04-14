@@ -1,13 +1,13 @@
-import { getDatabase, ref, get, child } from "firebase/database";
-import { firebaseApp } from "@/firebaseConfig";
+import { ref, get, child } from "firebase/database";
+import { database } from "@/firebaseConfig";
 export default function ReadPage(req, res) {
     if (req.method === 'POST') {
-        const db = getDatabase(firebaseApp);
+        const db = database;
         const { postId } = req.body;
 
         function readBlog(postId) {
-            const readRef = ref(db);
-            get(child(readRef, `posting/${postId}`))
+            const readRef = ref(db, '/posting');
+            get(child(readRef, `${postId}`))
                 .then((snapshot) => {
                     res.status(200).json({
                         readData: snapshot.val(),
